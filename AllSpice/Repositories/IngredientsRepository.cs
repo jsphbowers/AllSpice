@@ -39,4 +39,10 @@ public class IngredientsRepository
     List<Ingredient> ingredients = _db.Query<Ingredient>(sql, new { recipeId }).ToList();
     return ingredients;
   }
+
+  internal void RemoveIngredient(int ingredientId)
+  {
+    string sql = "DELETE FROM ingredients WHERE id = @ingredientId LIMIT 1;";
+    _db.Execute(sql, new { ingredientId });
+  }
 }
