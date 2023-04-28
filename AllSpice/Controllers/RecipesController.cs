@@ -42,6 +42,20 @@ public class RecipesController : ControllerBase
     }
   }
 
+  [HttpGet("{recipeId}/ingredients")]
+  public ActionResult<List<Ingredient>> GetRecipeIngredients(int recipeId)
+  {
+    try
+    {
+      List<Ingredient> ingredients = _recipesService.GetRecipeIngredients(recipeId);
+      return Ok(ingredients);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
+
   [HttpPost]
   [Authorize]
   public async Task<ActionResult<Recipe>> GenerateRecipe([FromBody] Recipe recipeData)

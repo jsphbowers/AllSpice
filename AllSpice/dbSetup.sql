@@ -64,3 +64,5 @@ SELECT ing.*, rec.*
 FROM ingredients ing
     JOIN recipes rec ON ing.recipeId = rec.id
 WHERE ing.id = LAST_INSERT_ID();
+
+SELECT * FROM ingredients WHERE ingredients.recipeId = 5;
