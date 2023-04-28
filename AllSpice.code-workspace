@@ -66,6 +66,9 @@
       "titleBar.inactiveBackground": "#b72c0199",
       "titleBar.inactiveForeground": "#e7e7e799"
     },
-    "peacock.color": "#b72c01"
+    "peacock.color": "#b72c01",
+    "cSpell.words": [
+      "Chimichurri"
+    ]
   }
 }
