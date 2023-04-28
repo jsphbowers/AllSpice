@@ -59,3 +59,8 @@ SET
     category = "Savory",
     img = "https://images.unsplash.com/photo-1529694157872-4e0c0f3b238b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
 WHERE id = 4;
+
+SELECT ing.*, rec.*
+FROM ingredients ing
+    JOIN recipes rec ON ing.recipeId = rec.id
+WHERE ing.id = LAST_INSERT_ID();

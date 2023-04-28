@@ -20,7 +20,7 @@ public class IngredientsController : ControllerBase
     try
     {
       Ingredient ingredient = _ingredientsService.GenerateIngredients(ingredientData);
-      return Ok();
+      return Ok(ingredient);
     }
     catch (Exception e)
     {
