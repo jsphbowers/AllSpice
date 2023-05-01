@@ -10,5 +10,5 @@ public class Recipe
   public string CreatorId { get; set; }
   public DateTime CreatedAt { get; set; }
   public DateTime UpdatedAt { get; set; }
-  public Account Creator { get; set; }
+  public Profile Creator { get; set; }
 }
