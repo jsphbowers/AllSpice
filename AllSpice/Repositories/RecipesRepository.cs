@@ -75,12 +75,17 @@ WHERE id = @Id
   {
     string sql = @"
     SELECT
-    *
-    FROM
-    recipes
+    rec.*,
+    creator.*
+    FROM recipes rec
+    JOIN accounts creator ON rec.creatorId = creator.id
     ;";
 
-    List<Recipe> recipes = _db.Query<Recipe>(sql).ToList();
+    List<Recipe> recipes = _db.Query<Recipe, Profile, Recipe>(sql, (recipe, creator) =>
+    {
+      recipe.Creator = creator;
+      return recipe;
+    }).ToList();
     return recipes;
   }
 }
