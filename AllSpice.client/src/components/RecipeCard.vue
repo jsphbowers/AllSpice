@@ -12,7 +12,11 @@
     </div>
   </div>
 
-  <RecipeModal id="recipeModal" />
+  <RecipeModal id="recipeModal">
+    <template #body>
+      <RecipeDetails />
+    </template>
+  </RecipeModal>
 </template>
 
 
@@ -21,6 +25,7 @@ import { AppState } from "../AppState.js";
 import { Recipe } from "../models/Recipe.js";
 import { recipesService } from "../services/RecipesService.js";
 import { logger } from "../utils/Logger.js";
+import RecipeDetails from "./RecipeDetails.vue";
 
 export default {
   props: {
@@ -29,11 +34,12 @@ export default {
   setup() {
     return {
       setActiveRecipe(recipeId) {
-        AppState.activeRecipe = AppState.recipes.find(r => r.id == recipeId)
-        logger.log(AppState.activeRecipe, '[WE SET THE ACTIVE RECIPE]')
+        AppState.activeRecipe = AppState.recipes.find(r => r.id == recipeId);
+        logger.log(AppState.activeRecipe, "[WE SET THE ACTIVE RECIPE]");
       }
-    }
-  }
+    };
+  },
+  components: { RecipeDetails }
 }
 </script>
 

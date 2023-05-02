@@ -10,6 +10,11 @@ class RecipesService {
     AppState.recipes = res.data.map(r => new Recipe(r))
     logger.log('[MAPPED RECIPES]', AppState.recipes)
   }
+
+  async fetchIngredients(recipeId) {
+    const res = await api.get(`api/recipes/${recipeId}/ingredients`)
+    logger.log('[GOT INGREDIENTS]', red.data)
+  }
 }
 
 export const recipesService = new RecipesService;
