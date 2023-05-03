@@ -22,7 +22,11 @@
             <h6>
               Ingredients
             </h6>
-            <p v-for="i in ingredient">{{ i.quantity }} : {{ i.name }}</p>
+            <div v-for="i in ingredient" class="d-flex justify-content-between mb-2">
+              <p>{{ i.quantity }} : {{ i.name }}</p>
+              <button @click="deleteIngredient(i.id)" v-if="activeRecipe.creatorId == account.id" class="btn btn-danger"
+                title="delete"><i class="mdi mdi-delete"></i></button>
+            </div>
           </div>
         </div>
         <div v-if="activeRecipe.creatorId == account.id">
@@ -46,7 +50,7 @@
 
 
 <script>
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, popScopeId, ref } from "vue";
 import { AppState } from "../AppState.js";
 import Pop from "../utils/Pop.js";
 import { logger } from "../utils/Logger.js";
@@ -70,6 +74,22 @@ export default {
           logger.error(error)
         }
         // logger.log(ingredientData, '[THIS IS THE INGREDIENT DATA]')
+      },
+
+      async deleteIngredient(ingredientId) {
+        try {
+          if (await Pop.confirm('Are you sure you want to delete this ingredient?')) {
+            let message = await recipesService.deleteIngredient(ingredientId)
+            logger.log(message)
+            return Pop.toast(message)
+          } else {
+            return
+          }
+
+        } catch (error) {
+          Pop.error(error)
+          logger.error(error)
+        }
       }
     }
   }

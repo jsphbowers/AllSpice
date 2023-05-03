@@ -24,7 +24,13 @@ class RecipesService {
     const res = await api.post(`api/ingredients`, ingredientData)
     // logger.log(res.data, '[INGREDIENT ADDED]')
     AppState.ingredients.push(new Ingredient(res.data))
+  }
 
+  async deleteIngredient(ingredientId) {
+    const res = await api.delete(`api/ingredients/${ingredientId}`)
+    logger.log('[DELETE COMPLETE]', res.data)
+    let message = res.data
+    return message
   }
 }
 
