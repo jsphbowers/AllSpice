@@ -21,7 +21,7 @@
 
 
 <script>
-import { watchEffect } from "vue";
+import { computed, watchEffect } from "vue";
 import { AppState } from "../AppState.js";
 import { Recipe } from "../models/Recipe.js";
 import { recipesService } from "../services/RecipesService.js";
@@ -44,15 +44,11 @@ export default {
       }
     }
 
-    watchEffect(() => {
-      if (AppState.activeRecipe != null) {
-        fetchIngredients()
-      }
-    })
     return {
       setActiveRecipe(recipeId) {
         AppState.activeRecipe = AppState.recipes.find(r => r.id == recipeId);
         logger.log(AppState.activeRecipe, "[WE SET THE ACTIVE RECIPE]");
+        fetchIngredients()
       }
     };
 
