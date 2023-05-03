@@ -38,15 +38,6 @@ export default {
   setup() {
     return {
       activeRecipe: computed(() => AppState.activeRecipe),
-      async fetchIngredients() {
-        try {
-          let recipeId = AppState.activeRecipe?.id
-          await recipesService.fetchIngredients(recipeId)
-        } catch (error) {
-          Pop.error(error.message)
-          logger.error(error)
-        }
-      }
     }
   }
 }

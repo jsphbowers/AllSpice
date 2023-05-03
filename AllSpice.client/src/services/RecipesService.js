@@ -13,7 +13,7 @@ class RecipesService {
 
   async fetchIngredients(recipeId) {
     const res = await api.get(`api/recipes/${recipeId}/ingredients`)
-    logger.log('[GOT INGREDIENTS]', red.data)
+    logger.log('[GOT INGREDIENTS]', res.data)
   }
 }
 

@@ -21,23 +21,41 @@
 
 
 <script>
+import { watchEffect } from "vue";
 import { AppState } from "../AppState.js";
 import { Recipe } from "../models/Recipe.js";
 import { recipesService } from "../services/RecipesService.js";
 import { logger } from "../utils/Logger.js";
 import RecipeDetails from "./RecipeDetails.vue";
+import Pop from "../utils/Pop.js";
 
 export default {
   props: {
     recipe: { type: Recipe, required: true }
   },
   setup() {
+    async function fetchIngredients() {
+      try {
+        let recipeId = AppState.activeRecipe.id
+        await recipesService.fetchIngredients(recipeId)
+      } catch (error) {
+        Pop.error(error.message)
+        logger.error(error)
+      }
+    }
+
+    watchEffect(() => {
+      if (AppState.activeRecipe != null) {
+        fetchIngredients()
+      }
+    })
     return {
       setActiveRecipe(recipeId) {
         AppState.activeRecipe = AppState.recipes.find(r => r.id == recipeId);
         logger.log(AppState.activeRecipe, "[WE SET THE ACTIVE RECIPE]");
       }
     };
+
   },
   components: { RecipeDetails }
 }
